@@ -1,1 +1,7 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <div class="day-element" *ngFor="let item of nasaObjects">
+    <div class="date" (click)="showDetalle(item)"><b>Fecha:</b> {{ item.date }}</div>
+    <div class="date" (click)="showDetalle(item)"><b>Imagen URL:</b> {{ item.url }}</div>
+    <div class="date" (click)="showDetalle(item)"><b>Titulo:</b> {{ item.title }}</div>
+  </div>
+</div>

@@ -1,1 +1,9 @@
-<p>detalle works!</p>
+<div class="detalle-container">
+    
+    <div class="element-detail" *ngIf="element">
+        <img [src]="element.hdurl" />
+        <div>{{element.explanation}}</div>
+    </div>
+    
+    <button (click)="goBack()">Volver</button>
+</div>

@@ -1,0 +1,15 @@
+:host {
+  .detalle-container {
+    .element-detail {
+      text-align: center;
+
+      * {
+        margin: 15px;
+      }
+
+      img {
+        width: 95%;
+      }
+    }
+  }
+}
