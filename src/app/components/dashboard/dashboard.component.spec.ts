@@ -1,23 +1,34 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { of } from 'rxjs';
 import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
+
+  const mockApiService = jasmine.createSpyObj(['getInfo']);
+  const mockRouter = jasmine.createSpyObj('Router', ['navigate']);
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(DashboardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    mockApiService.getInfo.and.returnValue(of({}));
+    component = new DashboardComponent(mockApiService, mockRouter)
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should get 6 elements from nasaObjects', () => {
+    expect(component.nasaObjects.length).toEqual(6);
+  });
+
+  it('should navigate on showDetalle', () => {
+    component.showDetalle({
+      copyright: '',
+      date: '',
+      explanation: '',
+      hdurl: '',
+      media_type: '',
+      service_version: '',
+      title: '',
+      url: ''
+    });
+    
+    expect(mockRouter.navigate).toHaveBeenCalled();
   });
 });

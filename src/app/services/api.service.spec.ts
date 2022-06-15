@@ -5,12 +5,15 @@ import { ApiService } from './api.service';
 describe('ApiService', () => {
   let service: ApiService;
 
+  const mockHttpClient = jasmine.createSpyObj('HttpClient', ['get']);
+
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ApiService);
+    mockHttpClient.get.and.returnValue({});
+    service = new ApiService(mockHttpClient);
   });
 
-  it('should be created', () => {
+  it('should get info', () => {
+    service.getInfo('');
     expect(service).toBeTruthy();
   });
 });

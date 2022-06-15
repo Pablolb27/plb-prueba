@@ -4,20 +4,36 @@ import { DetalleComponent } from './detalle.component';
 
 describe('DetalleComponent', () => {
   let component: DetalleComponent;
-  let fixture: ComponentFixture<DetalleComponent>;
+  const mockRouter = jasmine.createSpyObj('Router', ['navigate', 'getCurrentNavigation']);
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ DetalleComponent ]
-    })
-    .compileComponents();
+    mockRouter.getCurrentNavigation.and.returnValue({
+      extras: {
+        state: {
+          element: {}
+        }
+      }
+    });
 
-    fixture = TestBed.createComponent(DetalleComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new DetalleComponent(mockRouter);
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should get element on builder', () => {
+    expect(component.element).toBeTruthy();
+  });
+
+  it('should NOT get element on builder', () => {
+    mockRouter.getCurrentNavigation.and.returnValue({
+      extras: {}
+    });
+
+    component = new DetalleComponent(mockRouter)
+
+    expect(component.element).toBeFalsy();
+  });
+
+  it('should call navigate on method goBack', () => {
+    component.goBack();
+    expect(mockRouter.navigate).toHaveBeenCalled();
   });
 });
